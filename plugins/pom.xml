@@ -56,6 +56,7 @@
         <module>jsp</module>
         <module>rxjava</module>
         <module>rabbitmq</module>
+        <module>grpc</module>
     </modules>
 
     <dependencies>
@@ -279,6 +280,24 @@
             <artifactId>pinpoint-rabbitmq-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-bootstrap-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-bootstrap-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-grpc-plugin</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
