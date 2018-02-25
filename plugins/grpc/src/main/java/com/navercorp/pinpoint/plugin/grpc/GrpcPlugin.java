@@ -65,57 +65,6 @@ public class GrpcPlugin implements ProfilerPlugin, TransformTemplateAware {
                     });
         }
 
-
-//        //如果客户端是事务的起点,则个拦截器创建trace
-//        private void addClientCallsEditor() {
-//            String transport = "io.grpc.stub.ClientCalls";
-//            String transportInterceptor = "com.navercorp.pinpoint.plugin.grpc.interceptor.client.ClientCalls";
-//            transformTemplate.transform(transport,
-//                    new TransformCallback() {
-//                        @Override
-//                        public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
-//                            InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
-//
-//                            target.getDeclaredMethod("asyncUnaryRequestCall", "io.grpc.ClientCall", "java.lang.Object", "io.grpc.ClientCall$Listener", "boolean")
-//                                    .addInterceptor(transportInterceptor);
-//                            return target.toBytecode();
-//                        }
-//                    });
-//        }
-//
-//
-//
-//        private void addClientEditor() {
-//            String transport = "io.grpc.internal.ClientCallImpl";
-//            String transportInterceptor = "com.navercorp.pinpoint.plugin.grpc.interceptor.client.NettyClientTransportInterceptor";
-//            transformTemplate.transform(transport,
-//                    new TransformCallback() {
-//                        @Override
-//                        public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
-//                            InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
-//                            target.getDeclaredMethod("start", "io.grpc.ClientCall$Listener", "io.grpc.Metadata")
-//                                    .addInterceptor(transportInterceptor);
-//                            return target.toBytecode();
-//                        }
-//                    });
-//
-//        }
-//
-//        private void addServerEditor() {
-//            transformTemplate.transform("io.grpc.stub.ServerCalls$1$1",
-//                    new TransformCallback() {
-//                        @Override
-//                        public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> aClass, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
-//                            final InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
-//
-//                            target.getDeclaredMethod("onHalfClose")
-//                                    .addInterceptor("com.navercorp.pinpoint.plugin.grpc.interceptor.server.GrpcServerInvokerInterceptor");
-//                            return target.toBytecode();
-//                        }
-//                    });
-//        }
-
-
         private void addApplicationTypeDetector(ProfilerPluginSetupContext context) {
             context.addApplicationTypeDetector(new GrpcProviderDetector());
         }

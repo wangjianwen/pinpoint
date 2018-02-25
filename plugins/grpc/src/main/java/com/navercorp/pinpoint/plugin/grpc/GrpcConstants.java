@@ -4,6 +4,8 @@ import com.navercorp.pinpoint.common.trace.AnnotationKey;
 import com.navercorp.pinpoint.common.trace.AnnotationKeyFactory;
 import com.navercorp.pinpoint.common.trace.ServiceType;
 import com.navercorp.pinpoint.common.trace.ServiceTypeFactory;
+import io.grpc.Metadata;
+
 import static com.navercorp.pinpoint.common.trace.AnnotationKeyProperty.VIEW_IN_RECORD_SET;
 import static com.navercorp.pinpoint.common.trace.ServiceTypeProperty.RECORD_STATISTICS;
 
@@ -21,10 +23,11 @@ public interface GrpcConstants {
     /* * 这个原本是想让其在web的调用栈中显示出返回的结果,但是目前未实现 */
     AnnotationKey GRPC_RESULT = AnnotationKeyFactory.of(998, "grpc.result", VIEW_IN_RECORD_SET);
 
-    public static final String META_TRANSACTION_ID = "_SAMPLE_TRASACTION_ID";
-    public static final String META_SPAN_ID = "_SAMPLE_SPAN_ID";
-    public static final String META_PARENT_SPAN_ID = "_SAMPLE_PARENT_SPAN_ID";
-    public static final String META_PARENT_APPLICATION_NAME = "_SAMPLE_PARENT_APPLICATION_NAME";
-    public static final String META_PARENT_APPLICATION_TYPE = "_SAMPLE_PARENT_APPLICATION_TYPE";
-    public static final String META_FLAGS = "_SAMPLE_FLAGS";
+
+    Metadata.Key META_TRANSACTION_ID = Metadata.Key.of("_GRPC_TRASACTION_ID", Metadata.ASCII_STRING_MARSHALLER);
+    Metadata.Key META_SPAN_ID = Metadata.Key.of("_GRPC_SPAN_ID", Metadata.ASCII_STRING_MARSHALLER);
+    Metadata.Key META_PARENT_SPAN_ID = Metadata.Key.of("_GRPC_PARENT_SPAN_ID", Metadata.ASCII_STRING_MARSHALLER);
+    Metadata.Key META_PARENT_APPLICATION_NAME = Metadata.Key.of("_GRPC_PARENT_APPLICATION_NAME", Metadata.ASCII_STRING_MARSHALLER);
+    Metadata.Key META_PARENT_APPLICATION_TYPE = Metadata.Key.of("_GRPC_PARENT_APPLICATION_TYPE", Metadata.ASCII_STRING_MARSHALLER);
+    Metadata.Key META_FLAGS = Metadata.Key.of("_GRPC_FLAGS", Metadata.ASCII_STRING_MARSHALLER);
 }

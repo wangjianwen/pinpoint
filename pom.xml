@@ -88,6 +88,7 @@
         <cassandra.driver.version>2.1.7.1</cassandra.driver.version>
         <sniffer.artifactid>java16</sniffer.artifactid>
         <dubbo.version>2.5.3</dubbo.version>
+        <grpc.version>1.9.0</grpc.version>
     </properties>
 
     <dependencies>
@@ -746,6 +747,23 @@
                 <version>1.4.4.RELEASE</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-netty</artifactId>
+                <version>1.9.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-protobuf</artifactId>
+                <version>1.9.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-stub</artifactId>
+                <version>1.9.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
