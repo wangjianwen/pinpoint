@@ -4,6 +4,9 @@ package com.navercorp.pinpoint.plugin.grpc;
 import com.navercorp.pinpoint.common.trace.TraceMetadataProvider;
 import com.navercorp.pinpoint.common.trace.TraceMetadataSetupContext;
 
+/**
+ * @author Jianwen Wang
+ */
 public class GrpcTraceMetadataProvider implements TraceMetadataProvider {
 
     @Override

@@ -12,6 +12,9 @@ import io.grpc.Channel;
 import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 
+/**
+ * @author Jianwen Wang
+ */
 public class ClientCallsInterceptor implements AroundInterceptor4 {
 
     private final MethodDescriptor descriptor;

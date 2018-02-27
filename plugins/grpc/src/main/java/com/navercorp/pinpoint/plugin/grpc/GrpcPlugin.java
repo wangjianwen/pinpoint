@@ -8,17 +8,18 @@ import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformTemplate
 
 import java.security.ProtectionDomain;
 
+/**
+ * @author Jianwen Wang
+ */
 public class GrpcPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     private static final String GRPC_CLIENT_SCOPE = "grpc_client_scope";
     private static final String GRPC_SERVER_SCOPE = "grpc_server_scope";
 
-
     @Override
     public void setup(ProfilerPluginSetupContext context) {
         addApplicationTypeDetector(context);
-
         addClient();
         addServer();
     }

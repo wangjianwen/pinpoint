@@ -5,12 +5,16 @@ import com.navercorp.pinpoint.bootstrap.interceptor.SpanSimpleAroundInterceptor;
 import com.navercorp.pinpoint.bootstrap.util.NumberUtils;
 import com.navercorp.pinpoint.common.trace.ServiceType;
 import com.navercorp.pinpoint.plugin.grpc.GrpcConstants;
+import com.navercorp.pinpoint.plugin.grpc.GrpcMetadataKeyConstants;
 import io.grpc.Metadata;
 import io.grpc.ServerCall;
 
 import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 
+/**
+ * @author Jianwen Wang
+ */
 public class ServerCallsInterceptor extends SpanSimpleAroundInterceptor {
 
     public ServerCallsInterceptor(TraceContext traceContext, MethodDescriptor descriptor) {
@@ -21,15 +25,15 @@ public class ServerCallsInterceptor extends SpanSimpleAroundInterceptor {
     protected Trace createTrace(Object target, Object[] args) {
         Metadata metadata = (Metadata) args[1];
 
-        String transactionId = (String) metadata.get(GrpcConstants.META_TRANSACTION_ID);
+        String transactionId = (String) metadata.get(GrpcMetadataKeyConstants.META_TRANSACTION_ID);
 
         if (transactionId == null) {
             return traceContext.newTraceObject();
         }
 
-        long parentSpanId = NumberUtils.parseLong(metadata.get(GrpcConstants.META_PARENT_SPAN_ID).toString(), SpanId.NULL);
-        long spanId = NumberUtils.parseLong(metadata.get(GrpcConstants.META_SPAN_ID).toString(), SpanId.NULL);
-        short flags = NumberUtils.parseShort(metadata.get(GrpcConstants.META_FLAGS).toString(), (short) 0);
+        long parentSpanId = NumberUtils.parseLong(metadata.get(GrpcMetadataKeyConstants.META_PARENT_SPAN_ID).toString(), SpanId.NULL);
+        long spanId = NumberUtils.parseLong(metadata.get(GrpcMetadataKeyConstants.META_SPAN_ID).toString(), SpanId.NULL);
+        short flags = NumberUtils.parseShort(metadata.get(GrpcMetadataKeyConstants.META_FLAGS).toString(), (short) 0);
 
         TraceId traceId = traceContext.createTraceId(transactionId, parentSpanId, spanId, flags);
         return traceContext.continueTraceObject(traceId);
@@ -51,11 +55,11 @@ public class ServerCallsInterceptor extends SpanSimpleAroundInterceptor {
             recorder.recordRemoteAddress(remoteAddress.getHostName() + ":" + remoteAddress.getPort());
 
             if (!recorder.isRoot()) {
-                String parentApplicationName = headers.get(GrpcConstants.META_PARENT_APPLICATION_NAME).toString();
+                String parentApplicationName = headers.get(GrpcMetadataKeyConstants.META_PARENT_APPLICATION_NAME).toString();
 
                 if (parentApplicationName != null) {
                     short parentApplicationType = NumberUtils.parseShort(
-                            headers.get(GrpcConstants.META_PARENT_APPLICATION_TYPE).toString(),
+                            headers.get(GrpcMetadataKeyConstants.META_PARENT_APPLICATION_TYPE).toString(),
                             ServiceType.UNDEFINED.getCode());
                     recorder.recordParentApplication(parentApplicationName, parentApplicationType);
                     if (channel != null) {

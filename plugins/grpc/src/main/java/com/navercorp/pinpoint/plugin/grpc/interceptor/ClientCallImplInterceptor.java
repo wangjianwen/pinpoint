@@ -5,8 +5,12 @@ import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor2;
 import com.navercorp.pinpoint.bootstrap.interceptor.annotation.IgnoreMethod;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 import com.navercorp.pinpoint.plugin.grpc.GrpcConstants;
+import com.navercorp.pinpoint.plugin.grpc.GrpcMetadataKeyConstants;
 import io.grpc.Metadata;
 
+/**
+ * @author Jianwen Wang
+ */
 public class ClientCallImplInterceptor implements AroundInterceptor2 {
 
     private final MethodDescriptor descriptor;
@@ -31,12 +35,12 @@ public class ClientCallImplInterceptor implements AroundInterceptor2 {
         recorder.recordNextSpanId(nextId.getSpanId());
 
         Metadata metadata = (Metadata) arg2;
-        metadata.put(GrpcConstants.META_TRANSACTION_ID, nextId.getTransactionId());
-        metadata.put(GrpcConstants.META_SPAN_ID, Long.toString(nextId.getSpanId()));
-        metadata.put(GrpcConstants.META_PARENT_SPAN_ID, Long.toString(nextId.getParentSpanId()));
-        metadata.put(GrpcConstants.META_PARENT_APPLICATION_TYPE, Short.toString(traceContext.getServerTypeCode()));
-        metadata.put(GrpcConstants.META_PARENT_APPLICATION_NAME, traceContext.getApplicationName());
-        metadata.put(GrpcConstants.META_FLAGS, Short.toString(nextId.getFlags()));
+        metadata.put(GrpcMetadataKeyConstants.META_TRANSACTION_ID, nextId.getTransactionId());
+        metadata.put(GrpcMetadataKeyConstants.META_SPAN_ID, Long.toString(nextId.getSpanId()));
+        metadata.put(GrpcMetadataKeyConstants.META_PARENT_SPAN_ID, Long.toString(nextId.getParentSpanId()));
+        metadata.put(GrpcMetadataKeyConstants.META_PARENT_APPLICATION_TYPE, Short.toString(traceContext.getServerTypeCode()));
+        metadata.put(GrpcMetadataKeyConstants.META_PARENT_APPLICATION_NAME, traceContext.getApplicationName());
+        metadata.put(GrpcMetadataKeyConstants.META_FLAGS, Short.toString(nextId.getFlags()));
     }
 
     @IgnoreMethod

@@ -7,6 +7,9 @@ import com.navercorp.pinpoint.bootstrap.plugin.ApplicationTypeDetector;
 import com.navercorp.pinpoint.bootstrap.resolver.ConditionProvider;
 import com.navercorp.pinpoint.common.trace.ServiceType;
 
+/**
+ * @author Jianwen Wang
+ */
 public class GrpcProviderDetector implements ApplicationTypeDetector {
     private PLogger logger = PLoggerFactory.getLogger(this.getClass());
 
